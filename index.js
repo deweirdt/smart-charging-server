@@ -1,5 +1,5 @@
 const { getP1Power } = require("./p1-reader");
-const { setEVPower, getChargingMode, getSmartCharging, setSmartCharging } = require("./smappee");
+const { setEVPower, getChargingMode, getSmartCharging, setSmartCharging } = require("./EVChargingController");
 const { calculatedEVPower } = require("./calculateEVPower");
 const config = require("./config");
 
