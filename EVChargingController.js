@@ -1,6 +1,11 @@
 const { pauseCharging , setChargingMode, getAccessToken } = require("./smappee");
 
 let allowToBeOverruled = true;
+let appliedPercentage = null;
+let chargingMode = 'Unknown';
+let smartChargingEnabled = true;
+
+let chargingModes = new Set(["OVERRULED", "PAUSED", "CHARGING"]);
 
 async function setEVPower(percentage) {
     //let allowToBeOverruled = true;
@@ -8,9 +13,9 @@ async function setEVPower(percentage) {
     if(!smartChargingEnabled) {
         console.log("Process is overruled");
         if(allowToBeOverruled) {
-            setChargingMode("OVERRULED");
+            setChargingModeState("OVERRULED");
             console.log("Process is overruled, go back to default, charging mode");
-            await setChargingMode(30);  
+            //await setChargingMode(30);  
             allowToBeOverruled = false;
         }
         return;
@@ -29,12 +34,12 @@ async function setEVPower(percentage) {
     if( await getAccessToken() ) {
         if(appliedPercentage == 0) {
             console.log("FIX ME: Would be setting to pause charging");
-            setChargingMode("PAUSED");
-            await pauseCharging()
+            setChargingModeState("PAUSED");
+            //await pauseCharging()
         } else {
             console.log("FIX ME: Would be setting chargning percentage: ", percentage);
-            setChargingMode("CHARGING");
-            await setChargingMode(percentage); 
+            setChargingModeState("CHARGING");
+            //await setChargingMode(percentage); 
         }
     } else {
         console.error("No access_token available, bail out");
@@ -46,7 +51,7 @@ async function setEVPower(percentage) {
    * @param {string} mode - The new charging mode. Valid values: "overruled", "paused", "charging".
    * @throws {Error} If an invalid mode is provided.
    */
-function setChargingMode(mode) {
+function setChargingModeState(mode) {
     console.log("Charging mode is set to: ", mode);
     if(chargingModes.has(mode)) {
         chargingMode = mode;

@@ -13,11 +13,9 @@ let access_token = null;
 let refresh_token = null;
 let tokenExpiry = 0;
 
-let appliedPercentage = null;
-let chargingMode = 'Unknown';
-let smartChargingEnabled = true;
 
-let chargingModes = new Set(["OVERRULED", "PAUSED", "CHARGING"]);
+
+
 
 async function authenticate() {
     try{

@@ -1,6 +1,6 @@
 const { getP1Power } = require("./p1-reader");
 const { setEVPower, getChargingMode, getSmartCharging, setSmartCharging } = require("./EVChargingController");
-const { calculatedEVPower } = require("./calculateEVPower");
+const { calculateEVPower } = require("./calculateEVPower");
 const config = require("./config");
 
 const CHECK_INTERVAL = config.processing.interval;
@@ -8,7 +8,7 @@ let log_recommended = null;
 async function monitorPower() {
     const power = await getP1Power();
     if(power != null) {
-        recommendedPercentage = await calculatedEVPower(power);
+        recommendedPercentage = await calculateEVPower(power);
         if( log_recommended != recommendedPercentage ) {
             console.debug("%s Current power is: %d, recommending %d", new Date().toISOString(), power, recommendedPercentage);
             log_recommended = recommendedPercentage;
