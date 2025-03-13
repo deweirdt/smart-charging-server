@@ -16,6 +16,7 @@ async function setEVPower(percentage) {
             setChargingModeState("OVERRULED");
             console.log("Process is overruled, go back to default, charging mode");
             await setChargingMode(30);  
+            appliedPercentage = percentage;
             allowToBeOverruled = false;
         }
         return;
