@@ -73,8 +73,9 @@ function getChargingMode() {
  * When enabled this will read the P1 power an then steer the Smappee EV-Charger
  * @param {boolean} enabled 
  */
-function setSmartCharging(enabled) {
+async function setSmartCharging(enabled) {
     smartChargingEnabled = enabled;
+    await setEVPower(0);
 }
 
 /**
