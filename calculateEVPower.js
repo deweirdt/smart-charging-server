@@ -55,7 +55,7 @@ function calculateEVPower(gridPower) {
         availablePower = Math.abs(gridPower) + currentConsumption;
     }
     
-    console.log("Grid Power %d, Current EV-Charger power: %d, Available Power: %d",gridPower, currentConsumption, availablePower);
+    console.log("%s: Grid Power %d, Current EV-Charger power: %d, Available Power: %d",new Date().toISOString(), gridPower, currentConsumption, availablePower);
     const newSetting = findBestSetting(Math.abs(availablePower));
     const currentSetting = getCurrentSetting();
 
@@ -64,7 +64,7 @@ function calculateEVPower(gridPower) {
     // Apply new power setting
     currentConsumption = powerLookup.find(entry => entry.setting === newSetting)?.power || 0;
 
-    console.log("Recommending EV-Charger setting is: ", newSetting);
+    console.log("%s: Recommending EV-Charger setting is: ", new Date().toISOString(), newSetting);
     return newSetting;
 }
 
