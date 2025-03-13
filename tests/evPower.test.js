@@ -54,5 +54,13 @@ describe("EV Charger Power Calculation", () => {
         expect(calculateEVPower(-1000)).toBe(40); 
         expect(calculateEVPower(-1000)).toBe(50); 
     });
+
+    test("Field bugr", () => {
+        expect(calculateEVPower(-1490)).toBe(1);
+        expect(calculateEVPower(800)).toBe(0);
+        expect(calculateEVPower(2300)).toBe(0); 
+
+    });
+
     
 });

@@ -1,5 +1,5 @@
 const powerLookup = [
-    { power: 100, setting: 0 },
+    { power: 0, setting: 0 },
     { power: 1300, setting: 1 },
     { power: 1600, setting: 10 },
     { power: 2300, setting: 20 },
@@ -27,6 +27,7 @@ function getCurrentSetting() {
  * @param {number} availablePower - The power available for charging.
  */
 function findBestSetting(availablePower) {
+
     let bestMatch = powerLookup[0]; // Default to setting 0 (off)
     for (let entry of powerLookup) {
         if (entry.power <= availablePower) {
@@ -49,13 +50,10 @@ function calculateEVPower(gridPower) {
     }
 
     availablePower = 0;
-    if(gridPower > 0) {
-        availablePower = Math.abs(gridPower - currentConsumption);
-    } else {
-        availablePower = Math.abs(gridPower) + currentConsumption;
-    }
-    
-    console.log("%s: Grid Power %d, Current EV-Charger power: %d, Available Power: %d",new Date().toISOString(), gridPower, currentConsumption, availablePower);
+    availablePower = gridPower - currentConsumption;
+
+
+    console.log("%s: Grid Power %d, Current EV-Charger power: %d, Available Power: %d",new Date().toISOString(), gridPower, currentConsumption, availablePower);  
     const newSetting = findBestSetting(Math.abs(availablePower));
     const currentSetting = getCurrentSetting();
 
