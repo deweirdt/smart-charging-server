@@ -11,7 +11,7 @@ async function monitorPower() {
     if(power != null) {
         recommendedPercentage = await calculateEVPower(power);
         if( log_recommended != recommendedPercentage ) {
-            //console.debug("%s Current power is: %d, recommending %d", new Date().toISOString(), power, recommendedPercentage);
+            console.debug("%s Current power is: %d, recommending %d", new Date().toISOString(), power, recommendedPercentage);
             log_recommended = recommendedPercentage;
         }
         
@@ -48,12 +48,18 @@ app.get("/mode", (req, res) => {
 
 app.post("/smartCharging", (req, res) => {
     const { smartCharging } = req.body;
-    console.log("Setting smartCharging to: ", smartCharging);
+    //console.log("WEB Setting smartCharging to: ", smartCharging);
     if(typeof smartCharging !== "boolean") {
         return res.status(400).json({error: "Invalid request. 'smartCharging' must be true or false"});
     }
     setSmartCharging(smartCharging);
     res.json({'smartCharging': smartCharging});
+})
+
+app.get("/smartcharging", (req, res) => {
+//	console.log("Got in the GET smartcharging");
+    let smartCharging = getSmartCharging();
+	res.json({ "smartcharging": smartCharging});
 })
 
 // set port, listen for requests
