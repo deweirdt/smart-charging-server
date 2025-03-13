@@ -16,7 +16,7 @@ async function setEVPower(percentage) {
             setChargingModeState("OVERRULED");
             console.log("Process is overruled, go back to default, charging mode");
             await setChargingMode(30);  
-            appliedPercentage = percentage;
+            appliedPercentage = 30;
             allowToBeOverruled = false;
         }
         return;
@@ -76,6 +76,7 @@ function getChargingMode() {
  */
 async function setSmartCharging(enabled) {
     smartChargingEnabled = enabled;
+    console.log("SmartCharging has been set to: ", enabled);
     await setEVPower(0);
 }
 
