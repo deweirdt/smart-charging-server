@@ -7,10 +7,11 @@ const CHECK_INTERVAL = config.processing.interval;
 let log_recommended = null;
 async function monitorPower() {
     const power = await getP1Power();
+    //console.log("Power read from P1: ", power);
     if(power != null) {
         recommendedPercentage = await calculateEVPower(power);
         if( log_recommended != recommendedPercentage ) {
-            console.debug("%s Current power is: %d, recommending %d", new Date().toISOString(), power, recommendedPercentage);
+            //console.debug("%s Current power is: %d, recommending %d", new Date().toISOString(), power, recommendedPercentage);
             log_recommended = recommendedPercentage;
         }
         
