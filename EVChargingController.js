@@ -15,7 +15,7 @@ async function setEVPower(percentage) {
         if(allowToBeOverruled) {
             setChargingModeState("OVERRULED");
             console.log("Process is overruled, go back to default, charging mode");
-            //await setChargingMode(30);  
+            await setChargingMode(30);  
             allowToBeOverruled = false;
         }
         return;
@@ -33,13 +33,13 @@ async function setEVPower(percentage) {
 
     if( await getAccessToken() ) {
         if(appliedPercentage == 0) {
-            console.log("FIX ME: Would be setting to pause charging");
+            //console.log("FIX ME: Would be setting to pause charging");
             setChargingModeState("PAUSED");
-            //await pauseCharging()
+            await pauseCharging()
         } else {
-            console.log("FIX ME: Would be setting chargning percentage: ", percentage);
+            //console.log("FIX ME: Would be setting chargning percentage: ", percentage);
             setChargingModeState("CHARGING");
-            //await setChargingMode(percentage); 
+            await setChargingMode(percentage); 
         }
     } else {
         console.error("No access_token available, bail out");

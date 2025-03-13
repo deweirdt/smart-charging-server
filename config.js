@@ -3,7 +3,7 @@ module.exports = {
         ip: '192.168.1.245'
     },
     processing: {
-        interval: 5000
+        interval: 60000
     },
     smappee: {
         auth: 'https://app1pub.smappee.net/dev/v3/oauth2/token',
