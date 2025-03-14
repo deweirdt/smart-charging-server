@@ -62,5 +62,10 @@ describe("EV Charger Power Calculation", () => {
 
     });
 
-    
+    test("should not continuously change levels when power remains more of less stable", () => {
+        expect(calculateEVPower(-3500)).toBe(40); // Set to 40
+        expect(calculateEVPower(-100)).toBe(40); // Should remain on this level
+        expect(calculateEVPower(-200)).toBe(40); // Should remain on this level
+        expect(calculateEVPower(-100)).toBe(40); // Should remain on this level
+    });
 });

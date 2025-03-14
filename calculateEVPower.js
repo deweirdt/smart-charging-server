@@ -52,6 +52,10 @@ function calculateEVPower(gridPower) {
     availablePower = 0;
     availablePower = gridPower - currentConsumption;
 
+    if(availablePower > 0 ) {
+        console.log("Not sufficient power");
+        return 0;
+    }
 
     console.log("%s: Grid Power %d, Current EV-Charger power: %d, Available Power: %d",new Date().toISOString(), gridPower, currentConsumption, availablePower);  
     const newSetting = findBestSetting(Math.abs(availablePower));
