@@ -88,4 +88,12 @@ function getSmartCharging() {
     return smartChargingEnabled;
 }
 
-module.exports = { setEVPower , getChargingMode, setSmartCharging, getSmartCharging };
+/**
+ * Get the current applied percentage
+ * @returns {number} Smart charging mode enabled
+ */
+function getPercentage() {
+    return appliedPercentage;
+}
+
+module.exports = { setEVPower , getChargingMode, setSmartCharging, getSmartCharging, getPercentage };

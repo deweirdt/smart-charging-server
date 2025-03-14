@@ -1,5 +1,5 @@
 const { getP1Power } = require("./p1-reader");
-const { setEVPower, getChargingMode, getSmartCharging, setSmartCharging } = require("./EVChargingController");
+const { setEVPower, getChargingMode, getSmartCharging, setSmartCharging, getPercentage } = require("./EVChargingController");
 const { calculateEVPower } = require("./calculateEVPower");
 const config = require("./config");
 
@@ -43,7 +43,12 @@ app.get("/", (req, res) => {
 app.get("/mode", (req, res) => {
     let mode = getChargingMode();
     let smartCharging = getSmartCharging();
-    res.json({ "smartCharging": smartCharging, "charging": mode})
+    res.json({ "smartCharging": smartCharging, "charging": mode});
+})
+
+app.get("/percentage", (req, res) => {
+    let percentage = getPercentage();
+    res.json({"percentage": percentage});
 })
 
 app.post("/smartCharging", (req, res) => {
