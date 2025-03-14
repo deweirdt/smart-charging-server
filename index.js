@@ -51,14 +51,14 @@ app.get("/percentage", (req, res) => {
     res.json({"percentage": percentage});
 })
 
-app.post("/smartCharging", (req, res) => {
-    const { smartCharging } = req.body;
+app.post("/smartcharging", (req, res) => {
+    const { smartcharging } = req.body;
     //console.log("WEB Setting smartCharging to: ", smartCharging);
-    if(typeof smartCharging !== "boolean") {
-        return res.status(400).json({error: "Invalid request. 'smartCharging' must be true or false"});
+    if(typeof smartcharging !== "boolean") {
+        return res.status(400).json({error: "Invalid request. 'smartcharging' must be true or false"});
     }
-    setSmartCharging(smartCharging);
-    res.json({'smartCharging': smartCharging});
+    setSmartCharging(smartcharging);
+    res.json({'smartcharging': smartcharging});
 })
 
 app.get("/smartcharging", (req, res) => {
