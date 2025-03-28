@@ -11,10 +11,10 @@ async function setEVPower(percentage) {
     //let allowToBeOverruled = true;
 
     if(!smartChargingEnabled) {
-        console.log("%s Process is overruled", new Date().toISOString());
+        console.log("%s: Process is overruled", new Date().toISOString());
         if(allowToBeOverruled) {
             setChargingModeState("OVERRULED");
-            console.log("%s Process is overruled, go back to default, charging mode", new Date().toISOString());
+            console.log("%s: Process is overruled, go back to default, charging mode", new Date().toISOString());
             await setChargingMode(30);  
             appliedPercentage = 30;
             allowToBeOverruled = false;
@@ -25,7 +25,7 @@ async function setEVPower(percentage) {
     }
 
     if(percentage != appliedPercentage) {
-        console.log("%s Percentage can be changed to : %s", new Date().toISOString(), percentage);
+        console.log("%s: Percentage can be changed to : %s", new Date().toISOString(), percentage);
         appliedPercentage = percentage;
     } else {
         //console.debug("%s No change in percentage, no need to do anything", new Date().toISOString());
@@ -34,16 +34,14 @@ async function setEVPower(percentage) {
 
     if( await getAccessToken() ) {
         if(appliedPercentage == 0) {
-            //console.log("FIX ME: Would be setting to pause charging");
             setChargingModeState("PAUSED");
             await pauseCharging()
         } else {
-            //console.log("FIX ME: Would be setting chargning percentage: ", percentage);
             setChargingModeState("CHARGING");
             await setChargingMode(percentage); 
         }
     } else {
-        console.error("%s No access_token available, bail out", new Date().toISOString());
+        console.error("%s: No access_token available, bail out", new Date().toISOString());
     }
 }
 
@@ -53,7 +51,7 @@ async function setEVPower(percentage) {
    * @throws {Error} If an invalid mode is provided.
    */
 function setChargingModeState(mode) {
-    console.log("%s Charging mode is set to: %s", new Date().toISOString(), mode);
+    console.log("%s: Charging mode is set to: %s", new Date().toISOString(), mode);
     if(chargingModes.has(mode)) {
         chargingMode = mode;
     } else {
@@ -76,7 +74,7 @@ function getChargingMode() {
  */
 async function setSmartCharging(enabled) {
     smartChargingEnabled = enabled;
-    console.log("%s SmartCharging has been set to: %s", new Date().toISOString(), enabled);
+    console.log("%s: SmartCharging has been set to: %s", new Date().toISOString(), enabled);
     await setEVPower(0);
 }
 

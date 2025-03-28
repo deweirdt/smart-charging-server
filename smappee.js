@@ -28,8 +28,7 @@ async function authenticate() {
                 password: PASSWORD
             })
         );
-        //console.log("Got feedback from Smappee: ", response.data);
-        console.log("%s Authenticated with SMAPPEE", new Date().toISOString());
+        console.log("%s: Authenticated with SMAPPEE", new Date().toISOString());
         storeTokens(response.data)
         return access_token;
     } catch(error) {
@@ -52,7 +51,7 @@ async function refreshAccessToken() {
                 refresh_token, refresh_token
             })
         );
-        console.log("%s Got feedback refresh_token from Smappee: %s", new Date().toISOString(), response.data);
+        console.log("%s: Got feedback refresh_token from Smappee: %s", new Date().toISOString(), response.data);
         storeTokens(response.data);
         return access_token;
     } catch(error) {
@@ -78,7 +77,7 @@ async function setChargingMode(percentage) {
                 }
             }
         );
-        console.log("%s Changed charger to: %d ", new Date().toISOString(), percentage);
+        console.log("%s: Changed charger to: %d ", new Date().toISOString(), percentage);
         return true;
     } catch(error) {
         console.error("Could not refresh token: ", error.response?.data || error.message);
@@ -99,7 +98,7 @@ async function pauseCharging() {
                 }
             }
         );
-        console.log("%s Changed charging to PAUSED", new Date().toISOString());
+        console.log("%s: Changed charging to PAUSED", new Date().toISOString());
         return true;
     } catch(error) {
         console.error("Could not set in PAUSED mode: ", error.response?.data || error.message);
@@ -111,12 +110,12 @@ function storeTokens(data) {
     access_token = data.access_token;
     refresh_token = data.refresh_token;
     tokenExpiry = Date.now() + data.expires_in * 1000; //Converto to ms
-    console.log("%s Token expires in: %s", new Date().toISOString(), tokenExpiry);
+    console.log("%s: Token expires in: %s", new Date().toISOString(), tokenExpiry);
 }
 
 async function getAccessToken() {
     if(!access_token || Date.now() >= tokenExpiry) {
-        console.log("%s Need to refresh token: %s", new Date().toISOString(), access_token);
+        console.log("%s: Need to refresh token: %s", new Date().toISOString(), access_token);
         return refreshAccessToken();
     } else {
         //console.log("Got already a token, nothing to do");

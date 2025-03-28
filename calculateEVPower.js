@@ -53,7 +53,7 @@ function calculateEVPower(gridPower) {
     availablePower = gridPower - currentConsumption;
 
     if(availablePower > 0 ) {
-        console.log("%s Not sufficient power", new Date().toISOString());
+        console.log("%s: Not sufficient power", new Date().toISOString());
         return 0;
     }
 
