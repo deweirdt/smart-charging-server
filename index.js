@@ -17,7 +17,7 @@ async function monitorPower() {
         
         await setEVPower(recommendedPercentage);
     } else {
-        console.error("Could not process power");
+        console.error("%s Could not process power", new Date().toISOString());
     }
 }
 

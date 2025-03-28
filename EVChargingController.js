@@ -11,10 +11,10 @@ async function setEVPower(percentage) {
     //let allowToBeOverruled = true;
 
     if(!smartChargingEnabled) {
-        console.log("Process is overruled");
+        console.log("%s Process is overruled", new Date().toISOString());
         if(allowToBeOverruled) {
             setChargingModeState("OVERRULED");
-            console.log("Process is overruled, go back to default, charging mode");
+            console.log("%s Process is overruled, go back to default, charging mode", new Date().toISOString());
             await setChargingMode(30);  
             appliedPercentage = 30;
             allowToBeOverruled = false;
@@ -25,10 +25,10 @@ async function setEVPower(percentage) {
     }
 
     if(percentage != appliedPercentage) {
-        console.log("Percentage can be changed to : ", percentage);
+        console.log("%s Percentage can be changed to : %s", new Date().toISOString(), percentage);
         appliedPercentage = percentage;
     } else {
-        console.debug("No change in percentage, no need to do anything");
+        //console.debug("%s No change in percentage, no need to do anything", new Date().toISOString());
         return;
     }
 
@@ -43,7 +43,7 @@ async function setEVPower(percentage) {
             await setChargingMode(percentage); 
         }
     } else {
-        console.error("No access_token available, bail out");
+        console.error("%s No access_token available, bail out", new Date().toISOString());
     }
 }
 
@@ -53,7 +53,7 @@ async function setEVPower(percentage) {
    * @throws {Error} If an invalid mode is provided.
    */
 function setChargingModeState(mode) {
-    console.log("Charging mode is set to: ", mode);
+    console.log("%s Charging mode is set to: %s", new Date().toISOString(), mode);
     if(chargingModes.has(mode)) {
         chargingMode = mode;
     } else {
@@ -76,7 +76,7 @@ function getChargingMode() {
  */
 async function setSmartCharging(enabled) {
     smartChargingEnabled = enabled;
-    console.log("SmartCharging has been set to: ", enabled);
+    console.log("%s SmartCharging has been set to: %s", new Date().toISOString(), enabled);
     await setEVPower(0);
 }
 

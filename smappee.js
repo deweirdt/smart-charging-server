@@ -29,7 +29,7 @@ async function authenticate() {
             })
         );
         //console.log("Got feedback from Smappee: ", response.data);
-        console.log("Authenticated with SMAPPEE");
+        console.log("%s Authenticated with SMAPPEE", new Date().toISOString());
         storeTokens(response.data)
         return access_token;
     } catch(error) {
@@ -40,7 +40,7 @@ async function authenticate() {
 
 async function refreshAccessToken() {
     if(!refresh_token) {
-        console.error("No refresh token available, re-authenticate");
+        console.error("%s No refresh token available, re-authenticate", new Date().toISOString());
         return authenticate();
     }
     try {
@@ -52,7 +52,7 @@ async function refreshAccessToken() {
                 refresh_token, refresh_token
             })
         );
-        console.log("Got feedback refresh_token from Smappee: ", response.data);
+        console.log("%s Got feedback refresh_token from Smappee: %s", new Date().toISOString(), response.data);
         storeTokens(response.data);
         return access_token;
     } catch(error) {
@@ -78,7 +78,7 @@ async function setChargingMode(percentage) {
                 }
             }
         );
-        console.log("Changed charget to: %d ", percentage);
+        console.log("%s Changed charger to: %d ", new Date().toISOString(), percentage);
         return true;
     } catch(error) {
         console.error("Could not refresh token: ", error.response?.data || error.message);
@@ -99,7 +99,7 @@ async function pauseCharging() {
                 }
             }
         );
-        console.log("Changed charging to PAUSED");
+        console.log("%S Changed charging to PAUSED", new Date().toISOString());
         return true;
     } catch(error) {
         console.error("Could not set in PAUSED mode: ", error.response?.data || error.message);
