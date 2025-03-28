@@ -99,7 +99,7 @@ async function pauseCharging() {
                 }
             }
         );
-        console.log("%S Changed charging to PAUSED", new Date().toISOString());
+        console.log("%s Changed charging to PAUSED", new Date().toISOString());
         return true;
     } catch(error) {
         console.error("Could not set in PAUSED mode: ", error.response?.data || error.message);
@@ -111,13 +111,12 @@ function storeTokens(data) {
     access_token = data.access_token;
     refresh_token = data.refresh_token;
     tokenExpiry = Date.now() + data.expires_in * 1000; //Converto to ms
-    console.log("Token expires in: ", tokenExpiry);
+    console.log("%s Token expires in: %s", new Date().toISOString(), tokenExpiry);
 }
 
 async function getAccessToken() {
     if(!access_token || Date.now() >= tokenExpiry) {
         console.log("%s Need to refresh token: %s", new Date().toISOString(), access_token);
-        console.log("Access token expired or missing, refreshing..");
         return refreshAccessToken();
     } else {
         //console.log("Got already a token, nothing to do");
